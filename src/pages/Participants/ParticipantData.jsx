@@ -1,16 +1,20 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { participants } from "./participants";
+import { getParticipant } from "../../api/requests/auth";
+
 
 export default function ParticipantData() {
+	const [participant, setParticipant] = useState([])
 	const { id: participantId } = useParams();
 	//const currentParticipant = // fetch from backend
-	const currentParticipantIndex = participants.findIndex(
-		(participant) => participant.id === participantId
-	);
-	const currentParticipant =
-		currentParticipantIndex !== -1
-			? participants[currentParticipantIndex]
-			: null;
+	const currentParticipant = participantId
+	console.log(currentParticipant)
+	useEffect(() => {
+		getParticipant(currentParticipant).then((data) => {
+			setParticipant(data.data);
+		})
+	}, [currentParticipant])
+	console.log(participant)
 	if (currentParticipant === null) return <h1>Participant not found</h1>;
 	return (
 		<div className="flex justify-center py-24">
@@ -26,10 +30,10 @@ export default function ParticipantData() {
 					<h2 className="card-title">Participant Profile</h2>
 					<ul>
 						<li>
-							<strong>Name:</strong> {currentParticipant.name}
+							<strong>Name:</strong> {participant.name}
 						</li>
 						<li>
-							<strong>Age:</strong> {currentParticipant.age}
+							<strong>birthDate:</strong> {participant.birthDate}
 						</li>
 					</ul>
 					<div className="card-actions">

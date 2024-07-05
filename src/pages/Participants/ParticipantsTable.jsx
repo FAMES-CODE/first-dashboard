@@ -109,7 +109,7 @@ export default function ParticipantsTable() {
           {participants.map((participant) => (
             <tr key={participant._id}>
               <td>
-                <Link to={`/participants/${participant.id}`}>
+                <Link to={`/participants/${participant._id}`}>
                   {participant._id}
                 </Link>
               </td>

@@ -30,6 +30,10 @@ export async function updateSession(id, data) {
   return axiosConfig.put(`/sessions/${id}`, data);
 }
 
+export async function getParticipant(id) {
+  return axiosConfig.get(`/participants/${id}`);
+}
+
 export async function createParticipant(data) {
   return axiosConfig.post("/participants", data);
 }
